@@ -168,6 +168,10 @@ MIT
 
 ## Change log
 
+### 1.2.0
+
+- Fix issue with filtering
+
 ### 1.1.0
 
 - Added support for string content types
