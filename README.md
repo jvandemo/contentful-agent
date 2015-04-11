@@ -22,11 +22,11 @@ var request = require('contentful-agent')(options);
 
 // Define content types you want to fetch
 var contentTypes = {
-  'dogs': {
+  dogs: {
     id: '<contentful-content-type-id>',
     filters: {}
   },
-  'cats': {
+  cats: {
     id: '<contentful-content-type-id>',
     filters: {}
   }
@@ -35,21 +35,21 @@ var contentTypes = {
 // Make request
 request
   .get(contentTypes)
-  .then(function(result){
-    console.log(result);
+  .then(function(response){
+    console.log(response);
   }, function(error){
     console.log(error);
   });
 ```
 
-## Output
+## Returns
 
-The output is a plain javascript object with the `contentTypes` as keys and their corresponding entries as the values:
+A call to `.get()` returns a promise that is eventually resolved with a plain javascript object containing the `contentTypes` as keys and their corresponding entries as the values:
 
 ```javascript
 {
   // All dog entries
-  'dogs': [
+  dogs: [
     { sys: [Object], fields: [Object] },
     { sys: [Object], fields: [Object] },
     { sys: [Object], fields: [Object] },
@@ -67,7 +67,7 @@ The output is a plain javascript object with the `contentTypes` as keys and thei
 
 ## Filters
 
-You can specify multiple filters for each content type to filter entries in powerful ways:
+Each content type accepts a `filters` key where you can specify (multiple) powerful filters to narrow down the entries:
 
 ```javascript
 // Define content types you want to fetch
