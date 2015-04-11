@@ -1,6 +1,6 @@
 {
   "name": "contentful-agent",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Agent to fetch entries from Contentful",
   "keywords": [
     "contentful"
