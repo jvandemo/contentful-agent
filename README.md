@@ -1,5 +1,7 @@
 # Contentful agent
 
+[![Build Status](https://travis-ci.org/jvandemo/angular-contentful.svg?branch=master)](https://travis-ci.org/jvandemo/angular-contentful)
+
 Contentful agent is a small library that allows you to selectively fetch entries from a Contentful space.
 
 ## Installation
