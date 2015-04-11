@@ -22,11 +22,11 @@ var request = require('contentful-agent')(options);
 
 // Define content types you want to fetch
 var contentTypes = {
-  'team-members': {
+  'dogs': {
     id: '<contentful-content-type-id>',
     filters: {}
   },
-  'links': {
+  'cats': {
     id: '<contentful-content-type-id>',
     filters: {}
   }
@@ -48,16 +48,16 @@ The output is a plain javascript object with the `contentTypes` as keys and thei
 
 ```javascript
 {
-  // All team member entries
-  'team-members': [
+  // All dog entries
+  'dogs': [
     { sys: [Object], fields: [Object] },
     { sys: [Object], fields: [Object] },
     { sys: [Object], fields: [Object] },
     { sys: [Object], fields: [Object] }
   ],
 
-  // All links entries
-  links: [
+  // All cat entries
+  cats: [
     { sys: [Object], fields: [Object] },
     { sys: [Object], fields: [Object] },
     { sys: [Object], fields: [Object] }
