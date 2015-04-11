@@ -2,7 +2,10 @@
 
 [![Build Status](https://travis-ci.org/jvandemo/angular-contentful.svg?branch=master)](https://travis-ci.org/jvandemo/angular-contentful)
 
-Contentful agent is a small library that allows you to selectively fetch entries from a Contentful space.
+Contentful agent is a lightweight module to fetch entries from a [Contentful](https://www.contentful.com) space:
+
+- returns a promise for easy asynchronous handling
+- supports powerful filters to filter by entry fields
 
 ## Installation
 
@@ -10,70 +13,100 @@ Contentful agent is a small library that allows you to selectively fetch entries
 $ npm install contentful-agent
 ```
 
-## How it works
-
-Contentful agent only exposes one method `get()` that you can use to fetch data:
+## Quick example
 
 ```javascript
-// Define options to connect to contentful
-var options = {
-  space: '<contentful-space-id>',
-  accessToken: '<contentful-access-token>'
-};
+// Create agent
+var request = require('contentful-agent')({
+  space: 'cfexampleapi',
+  accessToken: 'b4c0n73n7fu1'
+});
 
-// Create agent and pass connection options
-var request = require('contentful-agent')(options);
+// Get all entries with content type 63k4qdEi9aI8IQUGaYGg4O
+// and store them as cats in the response
+var promise = request.get({ cats: '63k4qdEi9aI8IQUGaYGg4O' });
 
-// Define content types you want to fetch
-var contentTypes = {
-  dogs: {
-    id: '<contentful-content-type-id>',
-    filters: {}
-  },
+promise.then(function(entries){
+  console.log(entries.cats);
+});
+
+// Get multiple types of entries in one request
+promise = request.get({
+  cats: '63k4qdEi9aI8IQUGaYGg4O',
+  dogs: '6kdskjfjIQHFnkqdnsq23O'
+});
+
+promise.then(function(entries){
+  console.log(entries.cats);
+  console.log(entries.dogs);
+});
+
+// Use powerful filters to filter the results
+promise = request.get({
   cats: {
-    id: '<contentful-content-type-id>',
-    filters: {}
-  }
-};
-
-request
-
-  // Use `get` to make the request
-  .get(contentTypes)
-  
-  // Returns a promise
-  .then(
-  
-    // Success handler receives requested entries
-    function(response){
-      console.log(response);
-    },
-    
-    // Error handler receives error in case something went wrong
-    function(error){
-      console.log(error);
+    id: '63k4qdEi9aI8IQUGaYGg4O',
+    filters: {
+      'fields.type[in]': ['persian', 'belgian']
     }
-  );
-  
-// => response in success handler:
-// {
-//   dogs: [
-//     { sys: [Object], fields: [Object] },
-//     { sys: [Object], fields: [Object] },
-//     { sys: [Object], fields: [Object] },
-//     { sys: [Object], fields: [Object] }
-//   ],
-//   cats: [
-//     { sys: [Object], fields: [Object] },
-//     { sys: [Object], fields: [Object] },
-//     { sys: [Object], fields: [Object] }
-//   ]
-// }
+  }
+});
+
+promise.then(function(entries){
+  console.log(entries.cats);
+});
+
 ```
 
-## Returns
+## API
 
-A call to `.get()` returns a promise that is eventually resolved with a plain javascript object containing the `contentTypes` as keys and their corresponding entries as the values:
+### .get(contentTypes)
+
+#### Arguments
+
+- **contentTypes**: `Object`
+
+The `contentTypes` object is a key value map of entries you want to fetch, where each
+
+- `key`: represent the `key` in the response object the fetched entries will be stored in
+- `value`: represents the entries you wish to fetch
+
+Values can be either a `string`:
+
+```javascript
+// Fetch all entries with content type id 63k4qdEi9aI8IQUGaYGg4O
+// and store them in the `cats` property
+request.get({
+  cats: '63k4qdEi9aI8IQUGaYGg4O'
+});
+```
+
+ or an `object`:
+
+```javascript
+// Fetch all entries with content type id 63k4qdEi9aI8IQUGaYGg4O
+// and store them in the `cats` property
+request.get({
+  cats: {
+    id: '63k4qdEi9aI8IQUGaYGg4O'
+  }
+});
+
+// Fetch all entries with content type id 63k4qdEi9aI8IQUGaYGg4O
+// and type persian or belgian and store them in the `cats` property
+request.get({
+  cats: {
+    id: '63k4qdEi9aI8IQUGaYGg4O',
+    filters: {
+      'fields.type[in]': ['persian', 'belgian']
+    }
+  }
+});
+
+```
+
+#### Returns
+
+*Promise*: a call to `.get()` returns a promise that is eventually resolved with a plain javascript object containing the `contentTypes` as keys and their corresponding entries as the values:
 
 ```javascript
 {
@@ -101,18 +134,25 @@ Each content type accepts a `filters` key where you can specify (multiple) power
 ```javascript
 // Define content types you want to fetch
 var contentTypes = {
-  'dogs-and-cats': {
+  'dogsAndCats': {
     id: '<contentful-content-type-id>',
     filters: {
       'fields.type[in]': ['dog', 'cat']
     }
   },
-  'birds-and-trees': {
+  'birdsAndTrees': {
     id: '<contentful-content-type-id>',
     filters: {
       'fields.type[in]': ['bird', 'tree']
     }
   }
+};
+
+var promise = request.get(contentTypes);
+
+promise.then(function(entries){
+  console.log(entries.dogsAndCats);
+  console.log(entries.birdsAndTrees);
 };
 ```
 
@@ -124,15 +164,21 @@ MIT
 
 ## Change log
 
+### 1.1.0
+
+- Added support for string content types
+- Updated example
+- Updated documentation
+
 ### 1.0.0
 
-- Bump version because used in production
+- Bumped version because used in production
 
 ### 0.2.0
 
-- Add unit tests
-- Add filter support
-- Update documentation
+- Added unit tests
+- Added filter support
+- Updated documentation
 
 ### 0.1.0
 
