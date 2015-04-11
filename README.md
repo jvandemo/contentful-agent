@@ -52,6 +52,21 @@ request
       console.log(error);
     }
   );
+  
+// => response in success handler:
+// {
+//   dogs: [
+//     { sys: [Object], fields: [Object] },
+//     { sys: [Object], fields: [Object] },
+//     { sys: [Object], fields: [Object] },
+//     { sys: [Object], fields: [Object] }
+//   ],
+//   cats: [
+//     { sys: [Object], fields: [Object] },
+//     { sys: [Object], fields: [Object] },
+//     { sys: [Object], fields: [Object] }
+//   ]
+// }
 ```
 
 ## Returns
