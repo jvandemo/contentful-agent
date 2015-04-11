@@ -1,6 +1,6 @@
 # Contentful agent
 
-Contentful agent is a small Contentful request library that allows you to selectively fetch entries from a Contentful space.
+Contentful agent is a small library that allows you to selectively fetch entries from a Contentful space.
 
 ## Installation
 
@@ -63,8 +63,31 @@ The output is a plain javascript object with the `contentTypes` as keys and thei
     { sys: [Object], fields: [Object] }
   ]
 }
-
 ```
+
+## Filters
+
+You can specify multiple filters for each content type to filter entries in powerful ways:
+
+```javascript
+// Define content types you want to fetch
+var contentTypes = {
+  'dogs-and-cats': {
+    id: '<contentful-content-type-id>',
+    filters: {
+      'fields.type[in]': ['dog', 'cat']
+    }
+  },
+  'birds-and-trees': {
+    id: '<contentful-content-type-id>',
+    filters: {
+      'fields.type[in]': ['bird', 'tree']
+    }
+  }
+};
+```
+
+Check out the [official Contentful filters documentation](https://www.contentful.com/developers/documentation/content-delivery-api/#search-filter) for all possible options.
 
 ## License
 
