@@ -1,7 +1,9 @@
-// Define options to connect to contentful
+// This example fetches entries from a real Contentful demo space
+
+// Define options to connect to Contentful
 var options = {
-  space: '<contentful-space-id>',
-  accessToken: '<contentful-access-token>'
+  space: 'cfexampleapi',
+  accessToken: 'b4c0n73n7fu1'
 };
 
 // Create agent
@@ -9,12 +11,12 @@ var request = require('../index.js')(options);
 
 // Define content types you want to fetch
 var contentTypes = {
-  'team-members': {
-    id: '<contentful-content-type-id>',
+  cats: {
+    id: '63k4qdEi9aI8IQUGaYGg4O',
     filters: {}
   },
-  'links': {
-    id: '<contentful-content-type-id>',
+  dogs: {
+    id: 'dog',
     filters: {}
   }
 };
