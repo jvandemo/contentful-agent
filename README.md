@@ -8,7 +8,9 @@ Contentful agent is a small library that allows you to selectively fetch entries
 $ npm install contentful-agent
 ```
 
-## Fetching data
+## How it works
+
+Contentful agent only exposes one method `get()` that you can use to fetch data:
 
 ```javascript
 // Define options to connect to contentful
@@ -17,7 +19,7 @@ var options = {
   accessToken: '<contentful-access-token>'
 };
 
-// Create agent
+// Create agent and pass connection options
 var request = require('contentful-agent')(options);
 
 // Define content types you want to fetch
@@ -32,14 +34,24 @@ var contentTypes = {
   }
 };
 
-// Make request
 request
+
+  // Use `get` to make the request
   .get(contentTypes)
-  .then(function(response){
-    console.log(response);
-  }, function(error){
-    console.log(error);
-  });
+  
+  // Returns a promise
+  .then(
+  
+    // Success handler receives requested entries
+    function(response){
+      console.log(response);
+    },
+    
+    // Error handler receives error in case something went wrong
+    function(error){
+      console.log(error);
+    }
+  );
 ```
 
 ## Returns
