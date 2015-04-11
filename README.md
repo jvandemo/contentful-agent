@@ -124,6 +124,16 @@ MIT
 
 ## Change log
 
-### 2015-04-11
+### 1.0.0
 
-- Initial (public) version
+- Bump version because used in production
+
+### 0.2.0
+
+- Add unit tests
+- Add filter support
+- Update documentation
+
+### 0.1.0
+
+- Initial version
