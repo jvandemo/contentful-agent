@@ -158,6 +158,10 @@ promise.then(function(entries){
 
 Check out the [official Contentful filters documentation](https://www.contentful.com/developers/documentation/content-delivery-api/#search-filter) for all possible options.
 
+## Example
+
+A working example is included [here](examples/simple.js).
+
 ## License
 
 MIT
